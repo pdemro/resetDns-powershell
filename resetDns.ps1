@@ -15,6 +15,7 @@ while(1) {
     # $stopwatch.Start();
 
     set-dnsclientserveraddress -interfaceindex 7 -serveraddress "1.1.1.1"
+    Clear-DnsClientCache
 
     $dns = get-dnsAddress
     
@@ -29,6 +30,7 @@ while(1) {
     write-host "Took $($totalSecs) seconds to revert to 127.0.0.1";
     
     set-dnsclientserveraddress -interfaceindex 7 -serveraddress "1.1.1.1"
+    Clear-DnsClientCache
 
 }
 
