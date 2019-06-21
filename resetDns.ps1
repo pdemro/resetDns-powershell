@@ -11,6 +11,8 @@ function get-dnsAddress {
 
 while(1) {
 
+    $stopwatch =  [system.diagnostics.stopwatch]::StartNew()
+
     set-dnsclientserveraddress -interfaceindex 7 -serveraddress "1.1.1.1"
 
     $dns = get-dnsAddress
@@ -20,6 +22,10 @@ while(1) {
     
         Start-Sleep -Seconds 5
     }
+
+    $stopwatch.Stop()
+    $totalSecs =  [math]::Round($timer.Elapsed.TotalSeconds,0)
+    write-host "Took $($totalSecs) seconds to revert to 127.0.0.1";
     
     set-dnsclientserveraddress -interfaceindex 7 -serveraddress "1.1.1.1"
 
