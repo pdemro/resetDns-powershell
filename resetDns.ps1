@@ -9,15 +9,21 @@ function get-dnsAddress {
     return $ipv4.ServerAddresses
 }
 
-set-dnsclientserveraddress -interfaceindex 7 -serveraddress "1.1.1.1"
+while(1) {
 
-$dns = get-dnsAddress
+    set-dnsclientserveraddress -interfaceindex 7 -serveraddress "1.1.1.1"
 
-while($dns -eq "1.1.1.1") {
     $dns = get-dnsAddress
+    
+    while($dns -eq "1.1.1.1") {
+        $dns = get-dnsAddress
+    
+        Start-Sleep -Seconds 5
+    }
+    
+    set-dnsclientserveraddress -interfaceindex 7 -serveraddress "1.1.1.1"
 
-    Start-Sleep -Seconds 5
 }
 
-set-dnsclientserveraddress -interfaceindex 7 -serveraddress "1.1.1.1"
+
 
